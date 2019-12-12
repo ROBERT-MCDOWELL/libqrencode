@@ -778,11 +778,9 @@ static int writeANSI(const QRcode *qrcode, const char *outfile)
 	white_s = strlen(white);
 	black_s = strlen(black);
 
-	size = 1;
-
 	fp = openFile(outfile);
 
-	realwidth = (qrcode->width + margin * 2) * size;
+	realwidth = qrcode->width + margin * 2;
 	buffer_s = (realwidth * white_s) * 2;
 	buffer = malloc(buffer_s);
 	if (buffer == NULL) {
@@ -966,8 +964,6 @@ static int writeASCII(const QRcode *qrcode, const char *outfile, int invert)
 		black = ' ';
 		white = '#';
 	}
-
-	size = 1;
 
 	fp = openFile(outfile);
 
