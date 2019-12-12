@@ -746,6 +746,14 @@ static void writeANSI_margin(FILE* fp, size_t realwidth,
 	}
 }
 
+#define COPY_AND_ADVANCE_N(BUF, STR, LEN) \
+	do {                              \
+		strncpy(BUF, STR, LEN);   \
+		BUF += LEN;               \
+	} while (0)
+
+#define COPY_AND_ADVANCE(BUF, STR) COPY_AND_ADVANCE_N(BUF, STR, strlen(STR))
+
 static int writeANSI(const QRcode *qrcode, const char *outfile)
 {
 	FILE *fp;
@@ -756,6 +764,7 @@ static int writeANSI(const QRcode *qrcode, const char *outfile)
 
 	const char *white, *black;
 	char *buffer;
+	char *pbuf;
 	size_t white_s, black_s, buffer_s;
 
 	if (image_type == ANSI256_TYPE) {
@@ -790,32 +799,33 @@ static int writeANSI(const QRcode *qrcode, const char *outfile)
 		row = p + (y * qrcode->width);
 
 		memset(buffer, 0, buffer_s);
-		strncpy(buffer, white, white_s);
+		pbuf = buffer;
+		COPY_AND_ADVANCE_N(pbuf, white, white_s);
 		for (x = 0; x < margin; x++) {
-			strncat(buffer, "  ", 2);
+			COPY_AND_ADVANCE(pbuf, "  ");
 		}
 		last = 0;
 
 		for (x = 0; x < qrcode->width; x++) {
 			if (row[x] & 0x1) {
 				if (last != 1) {
-					strncat(buffer, black, black_s);
+					COPY_AND_ADVANCE_N(pbuf, black, black_s);
 					last = 1;
 				}
 			} else if(last != 0) {
-				strncat(buffer, white, white_s);
+				COPY_AND_ADVANCE_N(pbuf, white, white_s);
 				last = 0;
 			}
-			strncat(buffer, "  ", 2);
+			COPY_AND_ADVANCE(pbuf, "  ");
 		}
 
 		if (last != 0) {
-			strncat(buffer, white, white_s);
+			COPY_AND_ADVANCE_N(pbuf, white, white_s);
 		}
 		for (x = 0; x < margin; x++) {
-			strncat(buffer, "  ", 2);
+			COPY_AND_ADVANCE(pbuf, "  ");
 		}
-		strncat(buffer, "\033[0m\n", 5);
+		COPY_AND_ADVANCE(pbuf, "\033[0m\n");
 		fputs(buffer, fp);
 	}
 
