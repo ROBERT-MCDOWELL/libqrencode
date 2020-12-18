@@ -82,6 +82,7 @@
     </Lib>
     <Link>
       <ModuleDefinitionFile>qrencode.def</ModuleDefinitionFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -113,6 +114,7 @@
     </Lib>
     <Link>
       <ModuleDefinitionFile>qrencode.def</ModuleDefinitionFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -144,6 +146,7 @@
     </Lib>
     <Link>
       <ModuleDefinitionFile>qrencode.def</ModuleDefinitionFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -175,6 +178,7 @@
     </Lib>
     <Link>
       <ModuleDefinitionFile>qrencode.def</ModuleDefinitionFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
