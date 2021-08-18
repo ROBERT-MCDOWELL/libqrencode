@@ -45,6 +45,7 @@ static int structured = 0;
 static int rle = 0;
 static int svg_path = 0;
 static int micro = 0;
+static int nonewline = 0;
 static int inline_svg = 0;
 static int strict_versioning = 0;
 static QRecLevel level = QR_ECLEVEL_L;
@@ -89,6 +90,7 @@ static const struct option options[] = {
 	{"ignorecase"    , no_argument      , NULL, 'i'},
 	{"8bit"          , no_argument      , NULL, '8'},
 	{"micro"         , no_argument      , NULL, 'M'},
+	{"nonewline"     , no_argument      , NULL, 'n'},
 	{"rle"           , no_argument      , &rle,   1},
 	{"svg-path"      , no_argument      , &svg_path, 1},
 	{"inline"        , no_argument      , &inline_svg, 1},
@@ -146,6 +148,8 @@ static void usage(int help, int longopt, int status)
 "               ignore case distinctions and use only upper-case characters.\n\n"
 "  -8, --8bit   encode entire data in 8-bit mode. -k, -c and -i will be ignored.\n\n"
 "  -M, --micro  encode in a Micro QR Code.\n\n"
+"  -n, --nonewline\n"
+"               remove newline from the end of the STRING.\n\n"
 "      --rle    enable run-length encoding for SVG.\n\n"
 "      --svg-path\n"
 "               use single path to draw modules for SVG.\n\n"
@@ -200,6 +204,7 @@ static void usage(int help, int longopt, int status)
 "  -i           ignore case distinctions and use only upper-case characters.\n"
 "  -8           encode entire data in 8-bit mode. -k, -c and -i will be ignored.\n"
 "  -M           encode in a Micro QR Code.\n"
+"  -n           remove newline from the end of the STRING.\n"
 "  -V           display the version number and copyrights of the qrencode.\n"
 "  [STRING]     input data. If it is not specified, data will be taken from\n"
 "               standard input.\n\n"
@@ -1369,6 +1374,9 @@ int main(int argc, char **argv)
 			case 'M':
 				micro = 1;
 				break;
+			case 'n':
+				nonewline = 1;
+				break;
 			case 'f':
 				if(color_set(fg_color, optarg)) {
 					fprintf(stderr, "Invalid foreground color value.\n");
@@ -1415,6 +1423,10 @@ int main(int argc, char **argv)
 		intext = readFile(fp,&length);
 
 	}
+
+  if(nonewline && intext[length - 1] == '\n' ) {
+      intext[length - 1] = '\0';
+  }
 
 	if(micro && version > MQRSPEC_VERSION_MAX) {
 		fprintf(stderr, "Version number should be less or equal to %d.\n", MQRSPEC_VERSION_MAX);
