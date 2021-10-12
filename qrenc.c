@@ -763,13 +763,12 @@ static void writeANSI_margin(FILE* fp, size_t realwidth,
 	}
 }
 
-#define COPY_AND_ADVANCE_N(BUF, STR, LEN) \
+#define COPY_AND_ADVANCE(BUF, STR)        \
 	do {                              \
-		strncpy(BUF, STR, LEN);   \
-		BUF += LEN;               \
+		strcpy(BUF, STR);         \
+		BUF += strlen(STR);       \
 	} while (0)
 
-#define COPY_AND_ADVANCE(BUF, STR) COPY_AND_ADVANCE_N(BUF, STR, strlen(STR))
 
 static int writeANSI(const QRcode *qrcode, const char *outfile)
 {
@@ -798,7 +797,7 @@ static int writeANSI(const QRcode *qrcode, const char *outfile)
 	fp = openFile(outfile);
 
 	realwidth = qrcode->width + margin * 2;
-	buffer_s = (realwidth * white_s) * 2;
+	buffer_s = (realwidth * (white_s > black_s ? white_s : black_s)) * 2;
 	buffer = malloc(buffer_s);
 	if (buffer == NULL) {
 		fprintf(stderr, "Failed to allocate memory.\n");
@@ -815,7 +814,7 @@ static int writeANSI(const QRcode *qrcode, const char *outfile)
 
 		memset(buffer, 0, buffer_s);
 		pbuf = buffer;
-		COPY_AND_ADVANCE_N(pbuf, white, white_s);
+		COPY_AND_ADVANCE(pbuf, white);
 		for (x = 0; x < margin; x++) {
 			COPY_AND_ADVANCE(pbuf, "  ");
 		}
@@ -824,18 +823,18 @@ static int writeANSI(const QRcode *qrcode, const char *outfile)
 		for (x = 0; x < qrcode->width; x++) {
 			if (row[x] & 0x1) {
 				if (last != 1) {
-					COPY_AND_ADVANCE_N(pbuf, black, black_s);
+					COPY_AND_ADVANCE(pbuf, black);
 					last = 1;
 				}
 			} else if(last != 0) {
-				COPY_AND_ADVANCE_N(pbuf, white, white_s);
+				COPY_AND_ADVANCE(pbuf, white);
 				last = 0;
 			}
 			COPY_AND_ADVANCE(pbuf, "  ");
 		}
 
 		if (last != 0) {
-			COPY_AND_ADVANCE_N(pbuf, white, white_s);
+			COPY_AND_ADVANCE(pbuf, white);
 		}
 		for (x = 0; x < margin; x++) {
 			COPY_AND_ADVANCE(pbuf, "  ");
