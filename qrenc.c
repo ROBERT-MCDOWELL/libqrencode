@@ -45,6 +45,7 @@ static int dpi = 72;
 static int structured = 0;
 static int rle = 0;
 static int svg_path = 0;
+static int svg_no_background = 0;
 static int micro = 0;
 static int nonewline = 0;
 static int inline_svg = 0;
@@ -95,6 +96,7 @@ static const struct option options[] = {
 	{"nonewline"     , no_argument      , NULL, 'n'},
 	{"rle"           , no_argument      , &rle,   1},
 	{"svg-path"      , no_argument      , &svg_path, 1},
+	{"svg-no-background", no_argument   , &svg_no_background, 1},
 	{"inline"        , no_argument      , &inline_svg, 1},
 	{"strict-version", no_argument      , &strict_versioning, 1},
 	{"png-no-alpha"  , no_argument      , &png_no_alpha, 1},
@@ -164,6 +166,8 @@ static void usage(int help, int longopt, int status)
 "               Color output support available only in PNG, EPS and SVG.\n\n"
 "      --png-no-alpha\n"
 "               do not add alpha channel in PNG output.\n\n"
+"      --svg-no-background\n"
+"               don't add a background for SVG output.\n\n"
 "      --strict-version\n"
 "               disable automatic version number adjustment. If the input data is\n"
 "               too large for the specified version, the program exits with the\n"
@@ -599,11 +603,13 @@ static int writeSVG(const QRcode *qrcode, const char *outfile)
 	fputs("\t<g id=\"QRcode\">\n", fp);
 
 	/* Make solid background */
-	if(bg_color[3] != 255) {
-		fprintf(fp, "\t\t<rect x=\"0\" y=\"0\" width=\"%d\" height=\"%d\" fill=\"#%s\" fill-opacity=\"%f\"/>\n", symwidth, symwidth, bg, bg_opacity);
-	} else {
-		fprintf(fp, "\t\t<rect x=\"0\" y=\"0\" width=\"%d\" height=\"%d\" fill=\"#%s\"/>\n", symwidth, symwidth, bg);
-	}
+  if(!svg_no_background) { 
+    if(bg_color[3] != 255) {
+      fprintf(fp, "\t\t<rect x=\"0\" y=\"0\" width=\"%d\" height=\"%d\" fill=\"#%s\" fill-opacity=\"%f\"/>\n", symwidth, symwidth, bg, bg_opacity);
+    } else {
+      fprintf(fp, "\t\t<rect x=\"0\" y=\"0\" width=\"%d\" height=\"%d\" fill=\"#%s\"/>\n", symwidth, symwidth, bg);
+    }
+  }
 
 	if(svg_path) {
 		if(fg_color[3] != 255) {
