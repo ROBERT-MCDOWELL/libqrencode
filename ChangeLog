@@ -1,3 +1,21 @@
+2021.01.08 Kentaro Fukuchi <kentaro@fukuchi.org>
+	[develop]
+	* tests/test_qrinput.c:
+	  - A minor memory leak bug in a test case has been fixed.
+	* README.md:
+	  - 'libpng12-dev' has been corrected to 'libpng-dev'. (closes #170)
+	    (Thanks to @a6q)
+	* .github/workflows/cmake.yml:
+	  - Updated 'run-vcpkg' package to v6.
+	  - vcpkg's git commit ID has been updated to the latest master.
+
+2020.09.29 Kentaro Fukuchi <kentaro@fukuchi.org>
+	[develop]
+	* qrencode.c:
+	  - Removed unused code.
+	* qrencode.h:
+	  - Added a sample code snippet to the document.
+
 2020.09.28 Kentaro Fukuchi <kentaro@fukuchi.org>
 	[hotfix]
 	* qrinput.c, tests/test_estimatebit.c:
@@ -12,6 +30,11 @@
 	* tests/release_check.sh:
 	  - Release checker script has been added. Currently it checks only the
 	    version numbers among scripts.
+	* configure.ac:
+	  - '--enable-mudflap' option has been deleted. (mudflap is deprecated
+	    since GCC 4.9)
+	* qrencode.h:
+	  - Comments for QRcode_APIVersion() has been slightly improved.
 
 2020.09.27 Kentaro Fukuchi <kentaro@fukuchi.org>
 	[develop]
