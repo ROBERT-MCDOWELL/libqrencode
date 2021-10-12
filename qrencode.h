@@ -1,7 +1,7 @@
 /**
  * qrencode - QR Code encoder
  *
- * Copyright (C) 2006-2017 Kentaro Fukuchi <kentaro@fukuchi.org>
+ * Copyright (C) 2006-2018, 2020 Kentaro Fukuchi <kentaro@fukuchi.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -61,11 +61,11 @@
  * symbol of the specified version.
  *
  * \section structured Structured append
- * Libqrencode can generate "Structured-appended" symbols that enables to split
+ * Libqrencode can generate "Structured-appended" symbols that enable to split
  * a large data set into multiple QR codes. A QR code reader concatenates
  * multiple QR code symbols into a string.
  * Just like QRcode_encodeString(), you can use QRcode_encodeStringStructured()
- * to generate structured-appended symbols. This functions returns an instance
+ * to generate structured-appended symbols. This function returns an instance
  * of ::QRcode_List. The returned list is a singly-linked list of QRcode: you
  * can retrieve each QR code in this way:
  *
@@ -411,7 +411,7 @@ extern QRcode *QRcode_encodeInput(QRinput *input);
  * @param hint tell the library how Japanese Kanji characters should be
  *             encoded. If QR_MODE_KANJI is given, the library assumes that the
  *             given string contains Shift-JIS characters and encodes them in
- *             Kanji-mode. If QR_MODE_8 is given, all of non-alphanumerical
+ *             Kanji-mode. If QR_MODE_8 is given, all non-alphanumerical
  *             characters will be encoded as is. If you want to embed UTF-8
  *             string, choose this. Other mode will cause EINVAL error.
  * @param casesensitive case-sensitive(1) or not(0).
