@@ -32,6 +32,7 @@
 #endif
 
 #include "qrencode.h"
+#include "qrinput.h"
 
 #define INCHES_PER_METER (100.0/2.54)
 
@@ -246,7 +247,7 @@ static int color_set(unsigned char color[4], const char *value)
 	return 0;
 }
 
-#define MAX_DATA_SIZE (7090 * 2) /* multiplied by the safety factor 2 */
+#define MAX_DATA_SIZE (7089 * MAX_STRUCTURED_SYMBOLS + 1) /* an upper bound (cf. the specification) */
 static unsigned char data_buffer[MAX_DATA_SIZE];
 static unsigned char *readFile(FILE *fp, int *length)
 {
