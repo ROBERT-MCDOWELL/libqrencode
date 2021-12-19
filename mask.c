@@ -31,6 +31,12 @@
 #include "qrspec.h"
 #include "mask.h"
 
+#ifdef WITH_TESTS
+#define STATIC_IN_RELEASE
+#else
+#define STATIC_IN_RELEASE static
+#endif
+
 STATIC_IN_RELEASE int Mask_writeFormatInformation(int width, unsigned char *frame, int mask, QRecLevel level)
 {
 	unsigned int format;

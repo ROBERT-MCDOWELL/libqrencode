@@ -31,6 +31,12 @@
 #include "mqrspec.h"
 #include "mmask.h"
 
+#ifdef WITH_TESTS
+#define STATIC_IN_RELEASE
+#else
+#define STATIC_IN_RELEASE static
+#endif
+
 STATIC_IN_RELEASE void MMask_writeFormatInformation(int version, int width, unsigned char *frame, int mask, QRecLevel level)
 {
 	unsigned int format;
