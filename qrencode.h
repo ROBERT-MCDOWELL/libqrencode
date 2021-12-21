@@ -438,7 +438,7 @@ extern QRcode *QRcode_encodeInput(QRinput *input);
  *             Kanji-mode. If QR_MODE_8 is given, all non-alphanumerical
  *             characters will be encoded as is. If you want to embed UTF-8
  *             string, choose this. Other mode will cause EINVAL error.
- * @param casesensitive case-sensitive(1) or not(0).
+ * @param case-sensitive case-sensitive(1) or not(0).
  * @return an instance of QRcode class. The version of the result QRcode may
  *         be larger than the designated version. On error, NULL is returned,
  *         and errno is set to indicate the error. See Exceptions for the
@@ -514,7 +514,7 @@ extern QRcode_List *QRcode_encodeInputStructured(QRinput_Struct *s);
  *             Kanji-mode. If QR_MODE_8 is given, all of non-alphanumerical
  *             characters will be encoded as is. If you want to embed UTF-8
  *             string, choose this. Other mode will cause EINVAL error.
- * @param casesensitive case-sensitive(1) or not(0).
+ * @param case-sensitive case-sensitive(1) or not(0).
  * @return a singly-linked list of QRcode. On error, NULL is returned, and
  *         errno is set to indicate the error. See Exceptions for the details.
  * @throw EINVAL invalid input object.
@@ -529,11 +529,11 @@ extern QRcode_List *QRcode_encodeStringStructured(const char *string, int versio
 extern QRcode_List *QRcode_encodeString8bitStructured(const char *string, int version, QRecLevel level);
 
 /**
- * Create structured symbols from byte stream (may include '\0'). Wholde data
- * are encoded in 8-bit mode.
+ * Create structured symbols from byte stream (may include '\0'). Whole data stream
+ * is encoded in 8-bit mode.
  * @warning This function is THREAD UNSAFE when pthread is disabled.
  * @param size size of the input data.
- * @param data input dat.
+ * @param data input data.
  * @param version version of the symbol.
  * @param level error correction level.
  * @return a singly-linked list of QRcode. On error, NULL is returned, and

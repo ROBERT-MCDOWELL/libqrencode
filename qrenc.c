@@ -1734,7 +1734,7 @@ static void qrencodeStructured(const unsigned char *intext, int length, const ch
 	QRcode_List *qrlist, *p;
 	char filename[FILENAME_MAX];
 	char *base, *q, *suffix = NULL;
-	const char *type_suffix;
+	const char *type_suffix = NULL;
 	int i = 1;
 	size_t suffix_size;
 

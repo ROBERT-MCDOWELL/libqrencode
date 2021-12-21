@@ -35,29 +35,17 @@
 #include "split.h"
 #include "mask.h"
 #include "mmask.h"
+#include "qrencode_inner.h"
+
+#ifdef WITH_TESTS
+#define STATIC_IN_RELEASE
+#else
+#define STATIC_IN_RELEASE static
+#endif
 
 /******************************************************************************
  * Raw code
  *****************************************************************************/
-
-typedef struct {
-	int dataLength;
-	int eccLength;
-	unsigned char *data;
-	unsigned char *ecc;
-} RSblock;
-
-typedef struct {
-	int version;
-	int dataLength;
-	int eccLength;
-	unsigned char *datacode;
-	unsigned char *ecccode;
-	int b1;
-	int blocks;
-	RSblock *rsblock;
-	int count;
-} QRRawCode;
 
 static void RSblock_initBlock(RSblock *block, int dl, unsigned char *data, int el, unsigned char *ecc)
 {
@@ -189,17 +177,6 @@ void QRraw_free(QRRawCode *raw)
 /******************************************************************************
  * Raw code for Micro QR Code
  *****************************************************************************/
-
-typedef struct {
-	int version;
-	int dataLength;
-	int eccLength;
-	unsigned char *datacode;
-	unsigned char *ecccode;
-	RSblock *rsblock;
-	int oddbits;
-	int count;
-} MQRRawCode;
 
 MQRRawCode *MQRraw_new(QRinput *input)
 {

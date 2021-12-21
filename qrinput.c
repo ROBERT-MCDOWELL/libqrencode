@@ -33,6 +33,12 @@
 #include "bitstream.h"
 #include "qrinput.h"
 
+#ifdef WITH_TESTS
+#define STATIC_IN_RELEASE
+#else
+#define STATIC_IN_RELEASE static
+#endif
+
 /******************************************************************************
  * Utilities
  *****************************************************************************/
@@ -241,7 +247,7 @@ int QRinput_append(QRinput *input, QRencodeMode mode, int size, const unsigned c
  * @param number index number of the symbol. (1 <= number <= size)
  * @param parity parity among input data. (NOTE: each symbol of a set of structured symbols has the same parity data)
  * @retval 0 success.
- * @retval -1 error occurred and errno is set to indicate the error. See Execptions for the details.
+ * @retval -1 error occurred and errno is set to indicate the error. See Exceptions for the details.
  * @throw EINVAL invalid parameter.
  * @throw ENOMEM unable to allocate memory.
  */

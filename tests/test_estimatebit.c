@@ -3,6 +3,7 @@
 #include <string.h>
 #include "common.h"
 #include "../qrinput.h"
+#include "../bitstream.h"
 
 static QRinput *gstream;
 

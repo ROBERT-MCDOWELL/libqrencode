@@ -26,7 +26,10 @@ typedef struct {
 	QRencodeMode hint;
 	int casesensitive;
 } TestString;
+
+#ifndef _countof
 #define _countof(_Array) (sizeof(_Array) / sizeof(_Array[0]))
+#endif
 
 #define drand(__scale__) ((__scale__) * (double)rand() / ((double)RAND_MAX + 1.0))
 

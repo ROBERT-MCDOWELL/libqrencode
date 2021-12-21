@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
+#if !defined(_MSC_VER)
 #include <unistd.h>
+#endif
 #include <SDL.h>
 #include <getopt.h>
 #include <errno.h>
