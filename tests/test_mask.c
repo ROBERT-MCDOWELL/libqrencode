@@ -67,7 +67,7 @@ static char *maskPatterns[8] = {
 
 static void print_mask(int mask)
 {
-	const unsigned int w = 6;
+	#define w   6
 	unsigned char frame[w * w], *masked, *p;
 	int x, y;
 
@@ -98,7 +98,8 @@ static void print_masks(void)
 
 static int test_mask(int mask)
 {
-	const int w = 6;
+	#undef w
+	#define w   6
 	unsigned char frame[w * w], *masked, *p;
 	char *q;
 	int x, y;
@@ -141,7 +142,8 @@ static void test_masks(void)
 static void test_eval(void)
 {
 	unsigned char *frame;
-	unsigned int w = 6;
+	#undef w
+	#define w   6
 	int penalty;
 
 	frame = (unsigned char *)malloc(w * w);
@@ -173,7 +175,8 @@ static void test_eval(void)
 static void test_eval2(void)
 {
 	unsigned char *frame;
-	unsigned int w = 10;
+	#undef w
+	#define w   10
 	int penalty;
 	unsigned int x;
 
@@ -239,7 +242,8 @@ static void test_calcN2(void)
 static void test_eval3(void)
 {
 	unsigned char *frame;
-	int w = 15;
+	#undef w
+	#define w   15
 	int penalty;
 	int x, y;
 	static unsigned char pattern[7][15] = {
@@ -315,7 +319,7 @@ static void test_format(void)
 
 static void test_calcRunLength(void)
 {
-	int width = 5;
+	#define width  5
 	unsigned char frame[width * width];
 	int runLength[width + 1];
 	int i, j;

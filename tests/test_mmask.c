@@ -38,7 +38,7 @@ static char *maskPatterns[4] = {
 
 static void print_mask(int mask)
 {
-	const int w = 6;
+	#define w  6
 	unsigned char frame[w * w], *masked, *p;
 	int x, y;
 
@@ -69,7 +69,8 @@ static void print_masks(void)
 
 static int test_mask(int mask)
 {
-	const int w = 6;
+	#undef w
+	#define w   6
 	unsigned char frame[w * w], *masked, *p;
 	char *q;
 	int x, y;
@@ -106,7 +107,8 @@ static void test_masks(void)
 
 static void test_maskEvaluation(void)
 {
-	static const int w = 11;
+	#undef w
+	#define w   11
 	unsigned char pattern[w * w];
 	int i, score;
 

@@ -1,7 +1,12 @@
+#if HAVE_CONFIG_H
+#include "../config.h"
+#endif
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#ifdef HAVE_ICONV_H
 #include <iconv.h>
+#endif
 #include "datachunk.h"
 
 DataChunk *DataChunk_new(QRencodeMode mode)
@@ -84,6 +89,8 @@ static void dump8(DataChunk *chunk)
 	}
 }
 
+#ifdef HAVE_ICONV_H
+
 static void dumpKanji(DataChunk *chunk)
 {
 	iconv_t conv;
@@ -106,6 +113,8 @@ static void dumpKanji(DataChunk *chunk)
 	free(outbuf);
 }
 
+#endif
+
 static void dumpChunk(DataChunk *chunk)
 {
 	switch(chunk->mode) {
@@ -122,8 +131,12 @@ static void dumpChunk(DataChunk *chunk)
 			dump8(chunk);
 			break;
 		case QR_MODE_KANJI:
+#ifdef HAVE_ICONV_H
 			printf("Kanji: %zu bytes\n", chunk->size);
 			dumpKanji(chunk);
+#else
+			printf("Kanji dump is not supported in this version (iconv is not built-in)\n");
+#endif
 			break;
 		case QR_MODE_NUL:
 		case QR_MODE_STRUCTURE:
