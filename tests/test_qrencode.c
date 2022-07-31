@@ -1027,7 +1027,12 @@ static void test_apiversion(void)
 	testFinish();
 }
 
-int main(int argc, char **argv)
+
+#if defined(BUILD_MONOLITHIC)
+#define main(cnt, arr)      qrencode_test_main(cnt, arr)
+#endif
+
+int main(int argc, const char** argv)
 {
 	int tests = 33;
 	testInit(tests);

@@ -528,7 +528,12 @@ static void test_split8N8(void)
 	QRinput_free(input3);
 }
 
-int main()
+
+#if defined(BUILD_MONOLITHIC)
+#define main      qrencode_split_test_main
+#endif
+
+int main(void)
 {
 	int tests = 24;
 	testInit(tests);

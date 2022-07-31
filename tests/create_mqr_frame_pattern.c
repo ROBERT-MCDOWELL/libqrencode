@@ -13,7 +13,7 @@
 #include "common.h"
 #include "../mqrspec.h"
 
-void append_pattern(int version, FILE *fp)
+static void append_pattern(int version, FILE *fp)
 {
 	int width;
 	unsigned char *frame;
@@ -128,7 +128,7 @@ static int writePNG(unsigned char *frame, int width, const char *outfile)
 	return 0;
 }
 
-void write_pattern_image(int version, const char *filename)
+static void write_pattern_image(int version, const char *filename)
 {
 	int width;
 	unsigned char *frame;
@@ -142,7 +142,7 @@ void write_pattern_image(int version, const char *filename)
 	free(frame);
 }
 
-void write_pattern(const char *filename)
+static void write_pattern(const char *filename)
 {
 	FILE *fp;
 	int i;
@@ -159,7 +159,12 @@ void write_pattern(const char *filename)
 	fclose(fp);
 }
 
-int main(int argc, char **argv)
+
+#if defined(BUILD_MONOLITHIC)
+#define main(cnt, arr)      qrencode_create_mqr_frame_pattern_test_main(cnt, arr)
+#endif
+
+int main(int argc, const char** argv)
 {
 	if(argc < 2) {
 		printf("Create empty frame patterns.\nUsage: %s FILENAME\n", argv[0]);

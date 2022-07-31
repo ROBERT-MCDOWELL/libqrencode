@@ -1075,7 +1075,12 @@ static void test_encodeECI(void)
 	testFinish();
 }
 
-int main()
+
+#if defined(BUILD_MONOLITHIC)
+#define main      qrencode_qrinput_test_main
+#endif
+
+int main(void)
 {
 	int tests = 42;
 	testInit(tests);

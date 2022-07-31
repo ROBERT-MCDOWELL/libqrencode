@@ -81,7 +81,12 @@ static void test_bitstream_length() {
 	testEnd(err);
 }
 
-int main()
+
+#if defined(BUILD_MONOLITHIC)
+#define main      qrencode_split_urls_test_main
+#endif
+
+int main(void)
 {
 	int tests = 1;
 	testInit(tests);

@@ -93,7 +93,12 @@ static void prof_ver31to40(void)
 	timerStop();
 }
 
-int main()
+
+#if defined(BUILD_MONOLITHIC)
+#define main      qrencode_profile_test_main
+#endif
+
+int main(void)
 {
 	prof_ver1to10();
 	prof_ver31to40();

@@ -163,7 +163,12 @@ static void test_numbit1_mqr(void)
 	testFinish();
 }
 
-int main()
+
+#if defined(BUILD_MONOLITHIC)
+#define main      qrencode_estimatebit_test_main
+#endif
+
+int main(void)
 {
 	gstream = QRinput_new();
 

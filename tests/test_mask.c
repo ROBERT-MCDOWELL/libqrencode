@@ -393,7 +393,12 @@ static void test_calcN1N3(void)
 	testFinish();
 }
 
-int main(int argc, char **argv)
+
+#if defined(BUILD_MONOLITHIC)
+#define main(cnt, arr)      qrencode_mask_test_main(cnt, arr)
+#endif
+
+int main(int argc, const char** argv)
 {
 	int tests = 9;
 	testInit(tests);

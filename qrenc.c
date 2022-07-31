@@ -1863,7 +1863,12 @@ static void qrencodeStructured(const unsigned char *intext, int length, const ch
 	QRcode_List_free(qrlist);
 }
 
-int main(int argc, char **argv)
+
+#if defined(BUILD_MONOLITHIC)
+#define main(cnt, arr)      qrencode_qrenc_main(cnt, arr)
+#endif
+
+int main(int argc, const char** argv)
 {
 	int opt, lindex = -1;
 	char *outfile = NULL, *infile = NULL;

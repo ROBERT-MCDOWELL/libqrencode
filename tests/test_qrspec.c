@@ -298,7 +298,12 @@ static void test_format(void)
 	testEnd(err);
 }
 
-int main(int argc, char **argv)
+
+#if defined(BUILD_MONOLITHIC)
+#define main(cnt, arr)      qrencode_qrspec_test_main(cnt, arr)
+#endif
+
+int main(int argc, const char** argv)
 {
 	int tests = 6;
 	testInit(tests);

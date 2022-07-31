@@ -113,7 +113,12 @@ void test_allQRSizeAndECCLevel(void)
 	testFinish();
 }
 
-int main()
+
+#if defined(BUILD_MONOLITHIC)
+#define main      qrencode_rs_test_main
+#endif
+
+int main(void)
 {
 	RSECC_decoder_init();
 	int tests = 2;

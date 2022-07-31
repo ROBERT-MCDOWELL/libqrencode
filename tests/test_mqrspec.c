@@ -163,7 +163,12 @@ static void test_dataLength(void)
 	testEnd(err);
 }
 
-int main(int argc, char **argv)
+
+#if defined(BUILD_MONOLITHIC)
+#define main(cnt, arr)      qrencode_mqrspec_test_main(cnt, arr)
+#endif
+
+int main(int argc, const char** argv)
 {
 	int tests = 4;
 	testInit(tests);

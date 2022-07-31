@@ -236,7 +236,12 @@ static void test_newWithBits_size0(void)
 	BitStream_free(bstream);
 }
 
-int main()
+
+#if defined(BUILD_MONOLITHIC)
+#define main      qrencode_bitstream_test_main
+#endif
+
+int main(void)
 {
 	int tests = 11;
 	testInit(tests);

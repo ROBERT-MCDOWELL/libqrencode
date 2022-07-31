@@ -561,7 +561,12 @@ static void monkey_split_structure(int loop)
 	testEnd(0);
 }
 
-int main(int argc, char **argv)
+
+#if defined(BUILD_MONOLITHIC)
+#define main(cnt, arr)      qrencode_monkey_test_main(cnt, arr)
+#endif
+
+int main(int argc, const char** argv)
 {
 	int loop = 1000;
 	if(argc == 2) {
